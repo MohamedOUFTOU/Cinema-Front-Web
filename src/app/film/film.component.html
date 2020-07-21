@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <ul class="list-group" *ngIf="categories">
+        <li class="list-group-item">List des catégories</li>
+        <li  [ngClass]="c==currentCategorie?'active':''" (click)="onGetFilms(c)" class="list-group-item" *ngFor="let c of categories._embedded.categories">
+          {{ c.nom }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10">
+      <div class="panel panel-default">
+        <div class="panel-heading">Liste des films</div>
+        <div class="panel-body" *ngIf="films">
+          <div class="row">
+
+            <form class="navbar-form navbar-right" role="search">
+              <div class="form-group" style="margin-right: 5px">
+                <input type="text"  class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-right: 5px">Chercher</button>
+              <button (click)="router.navigate(['/addFilm'])" class="btn btn-success" style="margin-right: 5px">Ajouter un film</button>
+            </form>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-4" *ngFor="let f of films._embedded.films">
+              <div class="thumbnail">
+                <img src="{{ filmsService.host+'/imageFilm/'+f.id }}" alt="{{ f.titre }}" style="height: 150px">
+                <div class="caption">
+                  <h4>{{ f.titre }}</h4>
+                  <p>Durré : {{ f.duree }} Heurs</p>
+                  <p><a (click)="onFilmModify(f)"  class="btn btn-primary" role="button">Modifier</a> <a (click)="deleteFilm(f)" class="btn btn-danger" role="button">Supprimer</a></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

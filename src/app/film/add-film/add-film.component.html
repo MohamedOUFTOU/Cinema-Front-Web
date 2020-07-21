@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">Film Informations</div>
+    <div class="panel-body">
+      <form #f="ngForm" (ngSubmit)="onSaveFilm(f.value)" *ngIf="!currentFilm">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-8">
+              <label class="control-label">Titre :</label>
+              <input  class="form-control" type="text" name="titre" required="required" ngModel>
+              <label class="control-label">Description :</label>
+              <input  class="form-control" type="text" name="description" required="required" ngModel>
+              <label class="control-label">Realisateur :</label>
+              <input  class="form-control" type="text" name="realisateur" required="required" ngModel>
+              <label class="control-label">Date de sortie :</label>
+              <input  class="form-control" type="date" name="dateSortie" required="required" ngModel>
+              <label class="control-label">Durrée :</label>
+              <input  class="form-control" type="number" name="duree" required="required" ngModel>
+            </div>
+            <div class="col-md-4">
+              <label class="control-label">Poset de film :</label>
+              <input  class="form-control" type="file" accept="image/jpeg" (change)="showPreveiw($event)" name="photo" required="required" ngModel>
+              <!-- Image Preview -->
+              <br>
+              <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                <img [src]="imageURL" [alt]="uploadForm.value.name" style="height: 200px">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button type="submit" class="btn btn-success">Ajouter</button>
+      </form>
+      <form *ngIf="currentFilm" (ngSubmit)="onUpdateFilm()">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-8">
+              <label class="control-label">Titre :</label>
+              <input  class="form-control" [(ngModel)]="currentFilm.titre"  type="text" name="titre">
+              <label class="control-label">Description :</label>
+              <input  class="form-control" type="text" [(ngModel)]="currentFilm.description"  name="description">
+              <label class="control-label">Realisateur :</label>
+              <input  class="form-control" type="text" [(ngModel)]="currentFilm.realisateur" name="realisateur" required="required" ngModel>
+              <label class="control-label">Date de sortie :</label>
+              <input  class="form-control" type="date" name="dateSortie" [(ngModel)]="currentFilm.dateSortie" required="required" ngModel>
+              <label class="control-label">Durrée :</label>
+              <input  class="form-control" type="number" name="duree" [(ngModel)]="currentFilm.duree" required="required" ngModel>
+            </div>
+            <div class="col-md-4">
+              <label class="control-label">Poset de film :</label>
+              <input  class="form-control" type="file"  accept="image/jpeg" (change)="showPreveiw($event)" name="photo" required="required" ngModel>
+              <!-- Image Preview -->
+              <br>
+              <div class="imagePreview" *ngIf="!imageURL">
+                <img src="{{filmsService.host+'/imageFilm/'+currentFilm.id}}"   style="height: 200px">
+              </div>
+              <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                <img [src]="imageURL" [alt]="uploadForm.value.name" style="height: 200px">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button type="submit" class="btn btn-success">Modifier</button>
+      </form>
+    </div>
+  </div>
+</div>

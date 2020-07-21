@@ -1,0 +1,9 @@
+.clickable{
+  cursor: pointer;
+}
+
+.Nreserve{
+  margin: 5px;
+  width: 40px;
+  border-radius: 50%;
+}
